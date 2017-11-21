@@ -110,12 +110,20 @@ exports.default = function (apiUrl) {
                     return attrs[key] = params.data[key];
                 });
                 var updateParams = { data: { type: resource, id: params.id, attributes: attrs } };
+                if (attrs._meta) {
+                    updateParams.meta = Object.assign({}, attrs._meta);
+                    delete attrs._meta;
+                }
                 options.body = JSON.stringify(updateParams);
                 break;
             case _types.CREATE:
                 url = apiUrl + '/' + resource;
                 options.method = 'POST';
                 var createParams = { data: { type: resource, attributes: params.data } };
+                if (params.data._meta) {
+                    createParams.meta = Object.assign({}, params.data._meta);
+                    delete params.data._meta;
+                }
                 options.body = JSON.stringify(createParams);
                 break;
             case _types.DELETE:

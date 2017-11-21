@@ -4,6 +4,7 @@
   "description": "JSON API REST Client for Admin-on-rest",
   "main": "./src/restClient.js",
   "scripts": {
+    "build": "npm run-script babel1 && npm run-script babel2 && npm run-script babel3 && npm run-script babel4",
     "babel1": "babel --presets es2015 src/restClient.js -o build/restClient.js",
     "babel2": "babel --presets es2015 src/fetch.js -o build/fetch.js",
     "babel3": "babel --presets es2015 src/types.js -o build/types.js",

@@ -99,12 +99,20 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
             var attrs = {};
             Object.keys(params.data).forEach(key => attrs[key] = params.data[key]);
             const updateParams = {data:{type: resource, id: params.id, attributes: attrs}};
+            if (attrs._meta) {
+                updateParams.meta = Object.assign({}, attrs._meta);
+                delete attrs._meta;
+            }
             options.body = JSON.stringify(updateParams);
             break;
         case CREATE:
             url = `${apiUrl}/${resource}`;
             options.method = 'POST';
             const createParams = {data: {type: resource, attributes: params.data }};
+            if (params.data._meta) {
+                updateParams.meta = Object.assign({}, params.data._meta);
+                delete params.data._meta;
+            }
             options.body = JSON.stringify(createParams);
             break;
         case DELETE:
