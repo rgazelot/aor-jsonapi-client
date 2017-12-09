@@ -113,6 +113,19 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
                 updateParams.meta = Object.assign({}, params.data._meta);
                 delete params.data._meta;
             }
+            const relationships = params.data._relationships
+            if (relationships) {
+                createParams.data.relationships = {}
+                Object.keys(relationships).forEach(function (key) {
+                    return createParams.data.relationships[key] = Object.assign({}, {
+                        data: {
+                            type: key,
+                            id: relationships[key]
+                        }
+                    });
+                });
+                delete params.data._relationships;
+            }
             options.body = JSON.stringify(createParams);
             break;
         case DELETE:
