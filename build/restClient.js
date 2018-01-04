@@ -121,7 +121,7 @@ exports.default = function (apiUrl) {
                 options.method = 'POST';
                 var createParams = { data: { type: resource, attributes: params.data } };
                 if (params.data._meta) {
-                    updateParams.meta = Object.assign({}, params.data._meta);
+                    createParams.meta = Object.assign({}, params.data._meta);
                     delete params.data._meta;
                 }
                 var relationships = params.data._relationships;
